@@ -12,10 +12,77 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // aqui você poderia validar usuário e senha antes...
-    navigate("/home"); // 👈 redireciona para a página de planos
+  const handleLogin = async () => {
+    try {
+      // Fazendo a requisição POST para o endpoint /Conecte-se com os dados de login
+      const response = await fetch("http://lockai.somee.com/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Login: usuario, // Isso precisa estar igual ao nome da propriedade esperada no DTO (LoginDto)
+          Senha: senha,
+        }),
+      });
+
+      // Se a resposta for 401 ou algo diferente de 200, trata como erro
+      if (!response.ok) {
+        if (response.status === 401) {
+          alert("Usuário ou senha inválidos.");
+        } else {
+          alert("Erro ao realizar login. Tente novamente.");
+        }
+        return;
+      }
+
+      // Aqui você recebe o objeto JSON retornado pelo controlador
+      const data = await response.json();
+
+      console.log("Login efetuado:", data);
+
+      // Aqui você poderia salvar o token ou usuário no localStorage/sessionStorage
+      // localStorage.setItem("token", data.token);
+
+      // Redireciona para a página principal após login bem-sucedido
+      navigate("/home");
+
+    } catch (error) {
+      console.error("Erro ao conectar com a API:", error);
+      alert("Erro de conexão. Verifique se o backend está rodando.");
+    }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //const handleLogin = () => {
+    // aqui você poderia validar usuário e senha antes...
+   // navigate("/home"); // 👈 redireciona para a página de planos
+ // };
 
   const handleUsuarioChange = (e) => {
     const value = e.target.value;
