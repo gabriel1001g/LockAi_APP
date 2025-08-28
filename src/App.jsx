@@ -11,7 +11,7 @@ export default function App() {
    useEffect(() => {
     const carregarDados = async () => {
       try {
-        const response = await fetch("https://lockaiapi.somee.com/usuario/");
+        const response = await fetch("https://lockaiapi.somee.com/usuario/1");
         const data = await response.json();
         setDados(data);
       } catch (error) {
