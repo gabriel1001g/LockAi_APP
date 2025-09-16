@@ -15,7 +15,7 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       // Fazendo a requisição POST para o endpoint /Conecte-se com os dados de login
-      const response = await fetch("http://lockai.somee.com/auth/login", {
+      const response = await fetch("http://lockaiapi.somee.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
